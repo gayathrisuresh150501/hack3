@@ -137,3 +137,18 @@ func GetPlan(ctx *atreugo.RequestCtx) error {
 
 	return ctx.JSONResponse(plan, http.StatusOK)
 }
+
+func GetAllNotes(ctx *atreugo.RequestCtx) error {
+	collection := db.GetNotesCollection()
+	cursor, err := collection.Find(context.TODO(), bson.M{})
+	if err != nil {
+		return ctx.JSONResponse(map[string]string{"error": "Failed to get notes"}, http.StatusInternalServerError)
+	}
+
+	var notes []models.Note
+	if err := cursor.All(context.TODO(), &notes); err != nil {
+		return ctx.JSONResponse(map[string]string{"error": "Failed to get notes"}, http.StatusInternalServerError)
+	}
+
+	return ctx.JSONResponse(notes, http.StatusOK)
+}
