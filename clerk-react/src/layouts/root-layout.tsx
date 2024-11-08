@@ -1,25 +1,31 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { ClerkProvider, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/clerk-react";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
+  throw new Error("Missing Publishable Key");
 }
 
 export default function RootLayout() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <ClerkProvider
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
       publishableKey={PUBLISHABLE_KEY}
+      signInForceRedirectUrl="/dashboard"
     >
       <header className="header">
         <div>
           <div>
-            <p>Clerk + React + React Router App</p>
+            <p>Notes App-ShareIt</p>
           </div>
           <SignedIn>
             <UserButton />
@@ -33,5 +39,5 @@ export default function RootLayout() {
         <Outlet />
       </main>
     </ClerkProvider>
-  )
+  );
 }

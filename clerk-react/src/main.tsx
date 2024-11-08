@@ -9,7 +9,6 @@ import DashboardLayout from './layouts/dashboard-layout'
 
 // Import the components
 import IndexPage from './routes'
-import ContactPage from './routes/contact'
 import SignInPage from './routes/sign-in'
 import SignUpPage from './routes/sign-up'
 import DashboardPage from './routes/dashboard'
@@ -27,7 +26,6 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: '/', element: <IndexPage /> },
-      { path: '/contact', element: <ContactPage /> },
       { path: '/sign-in/*', element: <SignInPage /> },
       { path: '/sign-up/*', element: <SignUpPage /> },
       {
