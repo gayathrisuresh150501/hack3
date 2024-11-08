@@ -20,7 +20,8 @@ func CreateNote(ctx *atreugo.RequestCtx) error {
 	}
 
 	note.ID = primitive.NewObjectID().Hex()
-	note.Owner_ID = primitive.NewObjectID().Hex()
+	userID := ctx.UserValue("user_id").(string)
+	note.Owner_ID = userID
 	note.CreatedAt = time.Now()
 	note.UpdatedAt = time.Now()
 
