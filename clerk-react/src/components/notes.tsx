@@ -1,6 +1,12 @@
 import React from 'react';
 
-function Note({ notes }) {
+type Note = {
+  _id: string;
+  title: string;
+  content: string;
+}
+
+function Note({ notes }: { notes: Note[] }) {
   return (
     <div>
       {notes.length === 0 ? (
