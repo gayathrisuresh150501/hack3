@@ -137,10 +137,18 @@ func GetPlan(ctx *atreugo.RequestCtx) error {
 
 	return ctx.JSONResponse(plan, http.StatusOK)
 }
-
 func GetAllNotes(ctx *atreugo.RequestCtx) error {
+	userID := ctx.UserValue("user_id").(string)
+
 	collection := db.GetNotesCollection()
-	cursor, err := collection.Find(context.TODO(), bson.M{})
+	filter := bson.M{
+		"$or": []bson.M{
+			{"owner": userID},
+			{"shared_with.user_id": userID},
+		},
+	}
+
+	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
 		return ctx.JSONResponse(map[string]string{"error": "Failed to get notes"}, http.StatusInternalServerError)
 	}
