@@ -152,3 +152,25 @@ func GetAllNotes(ctx *atreugo.RequestCtx) error {
 
 	return ctx.JSONResponse(notes, http.StatusOK)
 }
+
+func CreateNoteForUser(ctx *atreugo.RequestCtx) error {
+	uid := ctx.UserValue("uid").(string)
+
+	var note models.Note
+	if err := json.Unmarshal(ctx.Request.Body(), &note); err != nil {
+		return ctx.JSONResponse(map[string]string{"error": "Invalid request"}, http.StatusBadRequest)
+	}
+
+	note.ID = primitive.NewObjectID().Hex()
+	note.Owner_ID = uid
+	note.CreatedAt = time.Now()
+	note.UpdatedAt = time.Now()
+
+	collection := db.GetNotesCollection()
+	_, err := collection.InsertOne(context.TODO(), note)
+	if err != nil {
+		return ctx.JSONResponse(map[string]string{"error": "Failed to create note"}, http.StatusInternalServerError)
+	}
+
+	return ctx.JSONResponse(note, http.StatusCreated)
+}

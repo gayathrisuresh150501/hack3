@@ -24,6 +24,7 @@ func main() {
 	server.UseBefore(middleware.CORSMiddleware())
 
 	server.POST("/api/notes", handlers.CreateNote)
+	server.POST("/api/notes/{uid}", handlers.CreateNoteForUser)
 	server.GET("/api/notes/{id}", handlers.GetNote)
 	server.GET("/api/notes/all", handlers.GetAllNotes)
 	server.PUT("/api/notes/{id}", handlers.UpdateNote)
