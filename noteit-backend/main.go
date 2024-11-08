@@ -25,8 +25,8 @@ func main() {
 
 	server.POST("/api/notes", handlers.CreateNote)
 	server.POST("/api/notes/{uid}", handlers.CreateNoteForUser)
-	server.GET("/api/notes/{id}", handlers.GetNote)
-	server.GET("/api/notes/all", handlers.GetAllNotes)
+	// server.GET("/api/notes/{id}", handlers.GetNote)
+	server.GET("/api/notes/{id}", handlers.GetAllNotes)
 	server.PUT("/api/notes/{id}", handlers.UpdateNote)
 	server.DELETE("/api/notes/{id}", handlers.DeleteNote)
 	server.POST("/plan", handlers.AddPlan)
