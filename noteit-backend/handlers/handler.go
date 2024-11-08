@@ -137,7 +137,7 @@ func GetPlan(ctx *atreugo.RequestCtx) error {
 	return ctx.JSONResponse(plan, http.StatusOK)
 }
 func GetAllNotes(ctx *atreugo.RequestCtx) error {
-	userID := ctx.UserValue("user_id").(string)
+	userID := ctx.UserValue("uid").(string)
 
 	collection := db.GetNotesCollection()
 	filter := bson.M{
