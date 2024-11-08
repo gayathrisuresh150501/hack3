@@ -21,6 +21,7 @@ func main() {
 	server := atreugo.New(config)
 
 	server.UseBefore(middleware.AuthMiddleware())
+	server.UseBefore(middleware.CORSMiddleware())
 
 	server.POST("/api/notes", handlers.CreateNote)
 	server.GET("/api/notes/{id}", handlers.GetNote)
